@@ -1,7 +1,7 @@
 language: python
 
 python:
-  - "3.7"
+  - "3.11"
 
 # Update pip to the latest version
 before_install:
@@ -12,8 +12,6 @@ before_install:
 
 install:
   - pip install -r requirements.txt
-  - pip uninstall urllib3
-  - pip install urllib3==1.26.6
 
 script:
    - python -m unittest tests/multiplication_tests.py
