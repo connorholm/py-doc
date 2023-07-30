@@ -23,3 +23,16 @@ class Multiplication:
         """
 
         return np.dot(number, self.multiplier)
+
+    def double(self):
+        """
+        Multiply a given number by the multiplier.
+
+        :param number: The number to multiply.
+        :type number: int
+
+        :return: The result of the multiplication.
+        :rtype: int
+        """
+
+        return np.dot(2, self.multiplier)
