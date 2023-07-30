@@ -1,9 +1,9 @@
 language: python
-python:
-  - 3.11.4
 
 # Update pip to the latest version
 before_install:
+  - sudo apt-get update
+  - sudo apt-get install python3
   - python --version
   - pip install -U pip
 
