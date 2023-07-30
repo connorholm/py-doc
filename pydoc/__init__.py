@@ -1,1 +1,1 @@
-from pydoc.pydoc.multiplication import Multiplication
+from pydoc.multiplication import Multiplication

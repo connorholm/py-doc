@@ -1,4 +1,4 @@
-from pydoc.pydoc import Multiplication
+from pydoc.multiplication import Multiplication
 
 multiplication = Multiplication(2)
 
