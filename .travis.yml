@@ -13,7 +13,7 @@ before_install:
 install:
   - pip install -r requirements.txt
   - pip uninstall urllib3
-  - pip install 'urllib3<2.0'
+  - pip install urllib3==1.26.6
 
 script:
    - python -m unittest tests/multiplication_tests.py
