@@ -1,0 +1,9 @@
+train: data/train  # 118287 images
+val: data/test
+test: data/valid
+
+# number of classes
+nc: 5
+
+# class names
+names: ['text', 'title', 'list', 'table', 'figure'] 
