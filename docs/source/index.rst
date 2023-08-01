@@ -11,6 +11,7 @@ Welcome to Py-Doc's documentation!
    :caption: Contents:
 
    api/multiplication
+   api/document
 
 
 

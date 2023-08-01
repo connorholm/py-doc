@@ -1,5 +1,5 @@
 ==============
-Multiplication
+Document
 ==============
 
 .. currentmodule:: py_doc.document
