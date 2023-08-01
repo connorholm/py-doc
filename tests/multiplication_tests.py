@@ -1,6 +1,6 @@
 import unittest
 import math
-from pydoc import Multiplication
+from py_doc import Multiplication
 
 
 class MultiplicationTestCase(unittest.TestCase):

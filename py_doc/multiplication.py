@@ -1,4 +1,7 @@
 import numpy as np
+
+def double(num):
+    return num * 2
 class Multiplication:
     """
     Instantiate a multiplication operation.

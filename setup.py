@@ -15,7 +15,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 # This call to setup() does all the work
 setup(
     name="py-doc",
-    version="0.0.2",
+    version="0.0.6",
     description="Used for working with documentations in Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -34,7 +34,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent"
     ],
-    packages=["pydoc"],
+    packages=["py_doc"],
     include_package_data=True,
-    install_requires=["numpy"]
+    install_requires=["numpy", "py-doc"]
 )
