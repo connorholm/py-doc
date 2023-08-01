@@ -19,6 +19,8 @@ script:
    - pip uninstall urllib3
    - pip install urllib3==1.26.6
 
+before_deploy: "echo 'ready?'"
+
 deploy:
   provider: pypi
   username: "__token__"
