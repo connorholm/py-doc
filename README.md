@@ -10,16 +10,23 @@ pip install py-doc
 How to use the library:
 
 ```python
-from py_doc import Multiplication
+from py_doc import Document 
 
-# Instantiate a Multiplication object
-multiplication = Multiplication(2)
+# Instantiate a Document object 
+image = Document('path/to/image.jpg')
 
-# Call the multiply method
-result = multiplication.multiply(5)
+# Use draw_classifications to find document classifications
+image.draw_classifications("outupt.jpg")
+
+# Additionally, if you just want the bounding boxes use get_bounding_box()
+image.get_bounding_box()
 ```
 
 ### Documentation
 The documentation for this library can be found [here](https://py-doc.readthedocs.io/en/latest/index.html#).
+
+### Examples
+This image is a sample of the output of the draw_classifications() method. The bounding boxes are drawn around the document classifications.
+![Sample Output]("./tests/documents/output.jpg")
 
 

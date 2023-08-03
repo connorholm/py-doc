@@ -1,8 +1,10 @@
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 
+
 # To use a consistent encoding
 from codecs import open
+import os
 from os import path
 
 # The directory containing this file
@@ -12,14 +14,18 @@ HERE = path.abspath(path.dirname(__file__))
 with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+requirements.append("py-doc")
+
 # This call to setup() does all the work
 setup(
     name="py-doc",
-    version="0.0.8",
+    version="0.1.0",
     description="Used for working with documentations in Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/connorholm/py-doc",
     author="Connor Holm",
     author_email="connorjholm@gmail.com",
     license="MIT",
@@ -34,7 +40,8 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent"
     ],
-    packages=["py_doc"],
+    packages=find_packages(),
+    package_data={"": ["py_doc/yolov7/weights/yolov7-tiny.pt"], "": ["py_doc/yolov7/requirements.txt"]},
     include_package_data=True,
-    install_requires=["numpy", "py-doc"]
+    install_requires=requirements
 )
