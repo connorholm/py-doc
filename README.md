@@ -27,6 +27,6 @@ The documentation for this library can be found [here](https://py-doc.readthedoc
 
 ### Examples
 This image is a sample of the output of the draw_classifications() method. The bounding boxes are drawn around the document classifications.
-![Sample Output]("./tests/documents/output.jpg")
+![Sample Output]("tests/documents/output.jpg")
 
 
