@@ -1,6 +1,7 @@
 import cv2
-
+import pytesseract
 from py_doc.yolov7.document_detection import detect_document
+from py_doc import utils
 
 class Document:
     """
@@ -12,6 +13,7 @@ class Document:
 
     def __init__(self, name):
         self.name = name
+        self.image = cv2.imread(name)
 
     def get_name(self):
         """
@@ -23,15 +25,14 @@ class Document:
 
         return self.name
 
-    def get_bounding_box(self):
+    def get_bboxes(self):
         """
         Use an object detection model to get bounding boxes for titles, text, figures, lists, and tables in the document.
 
         :return: A list of bounding boxes of the document.
         :rtype: list
         """
-        image = cv2.imread(self.name)
-        return detect_document(image)
+        return detect_document(self.image)
 
     def draw_classifications(self, file):
         """
@@ -44,8 +45,7 @@ class Document:
         :rtype: bool
         """
         
-        image = cv2.imread(self.name)
-        bboxes = detect_document(image)
+        bboxes = detect_document(self.image)
 
         classes = ["text", "title", "list", "table", "figure"]
         colors = [(0, 0, 255), (0, 255, 0), (255, 0, 0), (255, 255, 0), (0, 255, 255)]
@@ -53,16 +53,34 @@ class Document:
         for bbox in bboxes:
             x1, y1, x2, y2, class_id = int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3]), int(bbox[5])
             color = colors[class_id]
-            cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
-            cv2.putText(image, classes[class_id], (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.3, color, 1)
+            cv2.rectangle(self.image, (x1, y1), (x2, y2), color, 2)
+            cv2.putText(self.image, classes[class_id], (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.3, color, 1)
 
-        cv2.imwrite(file, image)
+        cv2.imwrite(file, self.image)
 
-        return True 
+        return True
 
+    def get_text(self):
+        """
+        Get the text from the document.
 
+        :return: The text from the document.
+        :rtype: str
+        """
 
-if __name__ == "__main__":
-    document = Document("/home/connor/Development/MachineLearning/document-platform/py-doc/py_doc/yolov7/test.jpg")
-    print(document.get_bounding_box())
-    
+        return pytesseract.image_to_string(self.image, lang='eng')
+
+    def get_text_from_bbox(self, bbox):
+        """
+        Get the text from the bounding box.
+
+        :param bbox: The bounding box to get the text from.
+        :type bbox: list with 4 elements [x1, y1, x2, y2]
+
+        :return: The text from the bounding box.
+        :rtype: str
+        """
+
+        x1, y1, x2, y2 = utils.reformat_bbox(bbox)
+        cropped = self.image[y1:y2, x1:x2]
+        return pytesseract.image_to_string(cropped, lang='eng')

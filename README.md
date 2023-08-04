@@ -19,7 +19,21 @@ image = Document('path/to/image.jpg')
 image.draw_classifications("outupt.jpg")
 
 # Additionally, if you just want the bounding boxes use get_bounding_box()
-image.get_bounding_box()
+image.get_bboxes()
+```
+To do optical character recognition (OCR), you will need to install [Tesseract](https://github.com/tesseract-ocr/tesseract)
+on your machine and make sure it is added to your PATH. If you don't need OCR, you can skip this step. 
+
+```python
+from py_doc import Document
+image = Document('path/to/image.jpg')
+
+# Use get_text() to get all the text from the image
+print(image.get_text())
+
+# Use get_text_from_bbox() to get text from a specific bounding box
+bbox = image.get_bboxes()[0]
+print(image.get_text_from_bbox(bbox))
 ```
 
 ### Documentation
