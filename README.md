@@ -48,6 +48,7 @@ Run the following instructions after pushing to the repo:
 1. make html (update documentation - need to be in docs directory)
 2. update version in setup.py
 3. python setup.py sdist bdist_wheel (builds the package)
+4. delete previous versions in dist folder
 4. twine check dist/* (checks the package)
 5. twine upload dist/* (uploads the package to PyPi)
 
