@@ -10,5 +10,3 @@ document = Document('tests/documents/test.jpg')
 print(document.get_text())
 bboxes = document.get_bboxes()
 print(document.get_text_from_bbox(bboxes[0]))
-
-

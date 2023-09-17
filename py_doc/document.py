@@ -2,6 +2,8 @@ import cv2
 import pytesseract
 from py_doc.yolov7.document_detection import detect_document
 from py_doc import utils
+import os
+import fitz
 
 class Document:
     """
@@ -84,3 +86,24 @@ class Document:
         x1, y1, x2, y2 = utils.reformat_bbox(bbox)
         cropped = self.image[y1:y2, x1:x2]
         return pytesseract.image_to_string(cropped, lang='eng')
+
+    def convert_to_image(self, output_path):
+        """
+        Turn a PDF into images.
+
+        :param output_path: The path of the folder where the images should be stored. 
+        :type output_path: string with folder name
+
+        :return: None
+        :rtype: None
+        """
+
+        directory = output_path
+        path = os.path.join(directory)
+        if not os.path.exists(path): 
+            os.mkdir(path)
+        doc = fitz.open(self.name)
+        for page in doc:
+            pix = page.get_pixmap(dpi=150)  
+            pix.save(os.path.join(directory,"image_%04i.png" % page.number))
+        doc.close()
