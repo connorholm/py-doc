@@ -12,6 +12,7 @@ Welcome to Py-Doc's documentation!
 
    api/document
    api/ocr
+   api/pdf
 
 
 

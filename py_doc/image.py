@@ -5,11 +5,11 @@ from py_doc import utils
 import os
 import fitz
 
-class Document:
+class Image:
     """
-    A class for representing documents.
+    A class for representing an image.
 
-    :param name: The name of the document.
+    :param name: The name of the image.
     :type name: str
     """
 
@@ -19,9 +19,9 @@ class Document:
 
     def get_name(self):
         """
-        Get the name of the document.
+        Get the name of the image.
 
-        :return: The name of the document.
+        :return: The name of the image.
         :rtype: str
         """
 
@@ -29,16 +29,16 @@ class Document:
 
     def get_bboxes(self):
         """
-        Use an object detection model to get bounding boxes for titles, text, figures, lists, and tables in the document.
+        Use an object detection model to get bounding boxes for titles, text, figures, lists, and tables in the image.
 
-        :return: A list of bounding boxes of the document.
+        :return: A list of bounding boxes of the image.
         :rtype: list
         """
         return detect_document(self.image)
 
     def draw_classifications(self, file):
         """
-        Draw the bounding boxes on the document.
+        Draw the bounding boxes on the image.
 
         :param file: The output file to save the image to.
         :type file: str
@@ -64,9 +64,9 @@ class Document:
 
     def get_text(self):
         """
-        Get the text from the document.
+        Get the text from the image.
 
-        :return: The text from the document.
+        :return: The text from the image.
         :rtype: str
         """
 
@@ -86,24 +86,3 @@ class Document:
         x1, y1, x2, y2 = utils.reformat_bbox(bbox)
         cropped = self.image[y1:y2, x1:x2]
         return pytesseract.image_to_string(cropped, lang='eng')
-
-    def convert_to_image(self, output_path):
-        """
-        Turn a PDF into images.
-
-        :param output_path: The path of the folder where the images should be stored. 
-        :type output_path: string with folder name
-
-        :return: None
-        :rtype: None
-        """
-
-        directory = output_path
-        path = os.path.join(directory)
-        if not os.path.exists(path): 
-            os.mkdir(path)
-        doc = fitz.open(self.name)
-        for page in doc:
-            pix = page.get_pixmap(dpi=150)  
-            pix.save(os.path.join(directory,"image_%04i.png" % page.number))
-        doc.close()
