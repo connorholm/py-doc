@@ -1,26 +1,28 @@
-
+import os
 import unittest
-import math
 import numpy as np
-from py_doc import Document
+
+from py_doc import Image
 
 
-class DocumentTestCase(unittest.TestCase):
+
+
+class ImageTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.document = Document("documents/test.jpg") 
+        self.image = Image("tests/documents/test.jpg") 
 
     def test_get_name(self):
         """Test get_name method"""
 
         # get_name method return the name of the document
-        result = self.document.get_name()
-        self.assertEqual(result, "documents/test.jpg")
+        result = self.image.get_name()
+        self.assertEqual(result, "tests/documents/test.jpg")
 
     def test_bounding_box(self):
         """Test get_bounding_box method"""
 
-        bbox = self.document.get_bounding_box()
+        bbox = self.image.get_bboxes()
         print(bbox)
         # check length is greater than 0
         self.assertGreater(len(bbox), 0)
