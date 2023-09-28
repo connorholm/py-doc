@@ -10,7 +10,7 @@ Welcome to Py-Doc's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   api/document
+   api/image
    api/ocr
    api/pdf
 
