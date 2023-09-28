@@ -10,10 +10,10 @@ pip install py-doc
 How to use the library:
 
 ```python
-from py_doc import Document 
+from py_doc import Image 
 
 # Instantiate a Document object 
-image = Document('path/to/image.jpg')
+image = Image('path/to/image.jpg')
 
 # Use draw_classifications to find document classifications
 image.draw_classifications("outupt.jpg")
@@ -25,8 +25,8 @@ To do optical character recognition (OCR), you will need to install [Tesseract](
 on your machine and make sure it is added to your PATH. If you don't need OCR, you can skip this step. 
 
 ```python
-from py_doc import Document
-image = Document('path/to/image.jpg')
+from py_doc import Image
+image = Image('path/to/image.jpg')
 
 # Use get_text() to get all the text from the image
 print(image.get_text())
