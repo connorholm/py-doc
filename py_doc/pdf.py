@@ -12,6 +12,16 @@ class PDF:
     def __init__(self, name) -> None:
         self.name = name
         self.doc = fitz.open(name)
+
+    def get_name(self):
+        """
+        Get the name of the document.
+
+        :return: The name of the document.
+        :rtype: str
+        """
+
+        return self.name
     
     def convert_to_image(self, output_path):
         """
