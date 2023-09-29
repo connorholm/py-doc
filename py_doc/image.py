@@ -7,15 +7,19 @@ import fitz
 
 class Image:
     """
-    A class for representing an image.
+    A class for representing an image. Takes in a name and a image. If the image is not provided, the name is used to load the image.
 
     :param name: The name of the image.
     :type name: str
     """
 
-    def __init__(self, name):
+    def __init__(self, name, bytes=None):
         self.name = name
-        self.image = cv2.imread(name)
+        if bytes is None:
+            self.bytes = cv2.imread(name)
+        else:
+            self.bytes = bytes
+        self.bboxes = [] 
 
     def get_name(self):
         """
@@ -34,33 +38,41 @@ class Image:
         :return: A list of bounding boxes of the image.
         :rtype: list
         """
-        return detect_document(self.image)
+        if len(self.bboxes) == 0:
+            self.bboxes = detect_document(self.bytes)
+        return self.bboxes 
 
-    def draw_classifications(self, file):
+    def draw_classifications(self, output_file = None):
         """
-        Draw the bounding boxes on the image.
+        Draw the bounding boxes on the image. Contains the option to save the image to a file, otherwise it will just return the image.
 
         :param file: The output file to save the image to.
         :type file: str
 
-        :return: Boolean indicating if the image was saved.
-        :rtype: bool
+        :return: If the file is provided, it will return a boolean based on the success, otherwise it will return the image.
+        :rtype: bool or numpy.ndarray
         """
         
-        bboxes = detect_document(self.image)
+        if len(self.bboxes) == 0:
+            bboxes = detect_document(self.bytes)
 
         classes = ["text", "title", "list", "table", "figure"]
         colors = [(0, 0, 255), (0, 255, 0), (255, 0, 0), (255, 255, 0), (0, 255, 255)]
 
+        drawn_image = self.bytes.copy()
+
         for bbox in bboxes:
             x1, y1, x2, y2, class_id = int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3]), int(bbox[5])
             color = colors[class_id]
-            cv2.rectangle(self.image, (x1, y1), (x2, y2), color, 2)
-            cv2.putText(self.image, classes[class_id], (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.3, color, 1)
+            cv2.rectangle(drawn_image, (x1, y1), (x2, y2), color, 2)
+            cv2.putText(drawn_image, classes[class_id], (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.3, color, 1)
 
-        cv2.imwrite(file, self.image)
+        if output_file is not None:
+            cv2.imwrite(output_file, drawn_image)
+            return True
+        else:
+            return Image(self.name, drawn_image)
 
-        return True
 
     def get_text(self):
         """
@@ -84,5 +96,5 @@ class Image:
         """
 
         x1, y1, x2, y2 = utils.reformat_bbox(bbox)
-        cropped = self.image[y1:y2, x1:x2]
+        cropped = self.bytes[y1:y2, x1:x2]
         return pytesseract.image_to_string(cropped, lang='eng')
