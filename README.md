@@ -35,7 +35,19 @@ print(image.get_text())
 bbox = image.get_bboxes()[0]
 print(image.get_text_from_bbox(bbox))
 ```
+Additionally info about working with pdfs.
+```python
+from py_doc import PDF
 
+# Instantiate a PDF object
+pdf = PDF('path/to/pdf.pdf')
+
+# Convert the pdf to a list of Image objects
+images = pdf.convert_to_images()
+
+# Will save a new pdf with the bounding boxes drawn around the document classifications
+pdf.draw_classifications("output.pdf")
+```
 ### Documentation
 The documentation for this library can be found [here](https://py-doc.readthedocs.io/en/latest/index.html#).
 

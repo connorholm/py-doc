@@ -21,7 +21,7 @@ requirements.append("py-doc")
 # This call to setup() does all the work
 setup(
     name="py-doc",
-    version="0.1.2",
+    version="0.1.3",
     description="Used for working with documentations in Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
